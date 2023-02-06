@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Login</mat-card-title>
+
+    <form #loginform="ngForm" (submit)="Register(loginform)">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" name="email" required ngModel />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          required
+          ngModel
+        />
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">Register</button>
+      <span style="margin: 5px"></span>
+      <a mat-stroked-button color="primary" (click)="RedirectLogin()">Login</a>
+    </form>
+  </mat-card-content>
+</mat-card>
