@@ -26,6 +26,9 @@ export class AuthGuard implements CanActivate {
     return new Observable<boolean>((obs) => {
       this.userService.isLoggedIn().subscribe({
         next: (res) => {
+          if (route.routeConfig?.path === 'auth' && res) {
+            this.router.navigate(['/']);
+          }
           obs.next(true);
         },
         error: () => {
