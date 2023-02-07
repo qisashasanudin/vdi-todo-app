@@ -7,6 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TodoService } from '../service/todo.service';
 import { UserService } from '../service/user.service';
 
 @Injectable({
@@ -26,9 +27,6 @@ export class AuthGuard implements CanActivate {
     return new Observable<boolean>((obs) => {
       this.userService.isLoggedIn().subscribe({
         next: (res) => {
-          if (route.routeConfig?.path === 'auth' && res) {
-            this.router.navigate(['/']);
-          }
           obs.next(true);
         },
         error: () => {
