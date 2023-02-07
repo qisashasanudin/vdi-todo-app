@@ -2,3 +2,8 @@ table {
   margin-top: 50px;
   width: 100%;
 }
+
+/* if completed, line through */
+.completed {
+  text-decoration: line-through;
+}

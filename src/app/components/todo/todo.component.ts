@@ -13,16 +13,6 @@ export class TodoComponent {
   dataSource: Todo[] = [];
   displayedColumns: string[] = ['checked', 'title', 'description', 'actions'];
 
-  globalcheckbox = false;
-
-  toggleCheckBoxes() {
-    if (this.globalcheckbox) {
-      this.globalcheckbox = false;
-    } else {
-      this.globalcheckbox = true;
-    }
-  }
-
   ngOnInit(): void {
     this.todoService.GetTodos().subscribe((res: any) => {
       this.dataSource = res?.data as Todo[];
@@ -53,6 +43,20 @@ export class TodoComponent {
         }
       });
     });
+  }
+
+  CheckTodoById(id: any, completed: boolean) {
+    this.todoService
+      .UpdateTodoById(id, { completed: completed })
+      .subscribe((res: any) => {
+        this.dataSource = this.dataSource.map((item: Todo) => {
+          if (item.id === id) {
+            return res?.data as Todo;
+          } else {
+            return item;
+          }
+        });
+      });
   }
 
   DeleteTodoById(id: any) {
