@@ -1,0 +1,65 @@
+<h2>To Do List</h2>
+
+<!-- form to add new todo -->
+<mat-card>
+  <mat-card-content>
+    <form #todoForm="ngForm" (submit)="CreateTodo(todoForm)">
+      <mat-form-field style="width: 100%">
+        <mat-label>Title</mat-label>
+        <input matInput name="title" required ngModel />
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <mat-label>Description</mat-label>
+        <textarea matInput name="description" ngModel></textarea>
+      </mat-form-field>
+
+      <button style="width: 100%" mat-flat-button color="primary" type="submit">
+        Add
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+  <ng-container
+    *ngFor="let column of displayedColumns; let i = index"
+    [ngSwitch]="column"
+  >
+    <ng-container *ngSwitchCase="'checked'">
+      <ng-container matColumnDef="{{ column }}">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [(ngModel)]="globalcheckbox"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox [checked]="globalcheckbox"></mat-checkbox>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'actions'">
+      <ng-container matColumnDef="{{ column }}">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="DeleteTodoById(element.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <ng-container matColumnDef="{{ column }}">
+        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

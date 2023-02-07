@@ -25,7 +25,7 @@ export class LoginComponent {
         next: (res) => {
           this.resData = res;
           this.cookieService.set('Authorization', this.resData.token);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         error: () => {
           console.log('Invalid Credentials');
